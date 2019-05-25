@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Orders</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+ <script>
+ $(document).ready(function(){
+	 $("button").click(function(){
+		 
+	   $.getJSON("https://localhost:8085/api/orders", function(order){
+			console.log(order);
+	      $(order).each(function(i,data) {
+	         $('#orderlist').append($("<tr>")
+	         .append($("<td>").append(data.orderId))
+	         .append($("<td>").append(data.totalPrice))
+	         .append($("<td>").append(data.customerId))
+	         .append($("<td>").append(data.createAt))
+	         .append($("<td>").append(data.updateAt)));
+	         
+	      }); 
+	   });
+	});
+ });
+ </script>
+</head>
+<body>
+	<div class="container">
+	<button>Get OrderList</button>
+      <div>
+          <h1>Order List</h1>
+        <table id="ordertable">
+            <thead>
+            
+            <tr>
+                <th>OrderId</th>
+                <th>ToatalPrice</th>
+                <th>Create Date</th>
+                <th>Update Date</th>
+                 <th>Customer Id</th>
+            </tr>
+            </thead>
+            <tbody id="orderlist">
+            </tbody>
+            
+        </table>
+      </div>
+    </div>
+
+</body>
+</html>
+
